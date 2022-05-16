@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script> 
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js" type="text/javascript"></script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+<style>
+  tr td { font-size: 11px; }
+  th { font-size: 12px; }
+</style>
+</head>
+    
+<body>
+<div>
+<h1 style="text-align: center !important; color: #4575B6 !important;">Brieftauben Altreise 2022 SG Hirschi</h1>
+<p>In der nachfolgenden Tabelle sind die Leistungsdaten der Brieftauben der SG Hirschi dargestellt. Die Daten werden dazu automatisiert aus den Riro Preislisten ausgelesen und voraggregiert.</p>
+<p>Für jede Taube wird die Leistung pro Flug dargestellt als <strong>"Rang bei Züchter / Rang in Gruppe / Rang in Region"</strong> und <strong>"AS-Punkte FG / AS-Punkte RV"</strong>. Ein "O" ("Härdöpfu!") bedeutet, dass die Taube zwar eingesetzt war, es allerdings nicht in die Preise geschafft hat. Nicht oder nicht mehr eingesetzte Tauben sind mit einem "-" gekennzeichnet. Die Tauben mit blauer Schrift wurden zu Beginn der Saison als die besten 5 Jährigen getippt.</p>
+<p>Die Tabelle ist sortiert nach der Summe der AS-Punkte in der RV.</p>
+</div>
+<div><table id=result_table class=display>
+  <thead><tr>
+  <th>Taube</th>
+    <th>Messkirch<br>130km - 60/27<br>2022-05-09</th>
+    <th>Ehingen<br>189km - 55/34<br>2022-05-14</th>
+  <th>Preise<br>RV</th>
+  <th>Preise<br>FG</th>
+  <th>AsPkt<br>RV</th>
+  <th>AsPkt<br>FG</th>
+  </tr></thead>
+  </tr><tbody>
+  <tr>
+    <td style=color:#00F;>CH-21-4817w</td>
+    <td>3 / 27 / 32<br>9.64 / 9.5</td>
+    <td>10 / 13 / 13<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>19.58</td>
+    <td>19.87</td>
+  </tr>
+  <tr>
+    <td>D-21-69760134w</td>
+    <td>5 / 30 / 38<br>9.64 / 8.7</td>
+    <td>11 / 18 / 19<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>18.78</td>
+    <td>19.87</td>
+  </tr>
+  <tr>
+    <td>CH-20-9646w</td>
+    <td>8 / 41a / 65a<br>8.84 / 8.7</td>
+    <td>15 / 37 / 49<br>10.23 / 9.28</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.98</td>
+    <td>19.07</td>
+  </tr>
+  <tr>
+    <td>CH-21-4837</td>
+    <td>14 / 69 / 112<br>8.84 / 7.9</td>
+    <td>3 / 4 / 4<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.98</td>
+    <td>19.07</td>
+  </tr>
+  <tr>
+    <td>CH-21-4851w</td>
+    <td>13 / 68 / 110<br>8.84 / 7.9</td>
+    <td>7 / 10 / 10<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.98</td>
+    <td>19.07</td>
+  </tr>
+  <tr>
+    <td>CH-15-5421</td>
+    <td>15 / 89 / 163<br>8.04 / 7.1</td>
+    <td>12 / 21 / 23<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.18</td>
+    <td>18.27</td>
+  </tr>
+  <tr>
+    <td>CH-19-10465</td>
+    <td>22 / 112b / 195b<br>7.24 / 7.1</td>
+    <td>9 / 12 / 12<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.18</td>
+    <td>17.47</td>
+  </tr>
+  <tr>
+    <td>CH-21-4831w</td>
+    <td>7 / 39 / 63<br>8.84 / 8.7</td>
+    <td>23 / 70 / 91<br>9.43 / 8.48</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.18</td>
+    <td>18.27</td>
+  </tr>
+  <tr>
+    <td style=color:#00F;>CH-21-4844w</td>
+    <td>1 / 23 / 26<br>9.64 / 9.5</td>
+    <td>29 / 98 / 131<br>8.63 / 7.68</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.18</td>
+    <td>18.27</td>
+  </tr>
+  <tr>
+    <td style=color:#00F;>CH-21-4855</td>
+    <td>2 / 24 / 27<br>9.64 / 9.5</td>
+    <td>31 / 100b / 136b<br>8.63 / 7.68</td>
+    <td>2</td>
+    <td>2</td>
+    <td>17.18</td>
+    <td>18.27</td>
+  </tr>
+  <tr>
+    <td>CH-21-4803w</td>
+    <td>9 / 41b / 65b<br>8.84 / 8.7</td>
+    <td>27 / 89 / 117<br>8.63 / 7.68</td>
+    <td>2</td>
+    <td>2</td>
+    <td>16.38</td>
+    <td>17.47</td>
+  </tr>
+  <tr>
+    <td>CH-16-2325</td>
+    <td>26 / 133 / 232<br>6.44 / 6.3</td>
+    <td>5 / 7 / 7<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>16.38</td>
+    <td>16.67</td>
+  </tr>
+  <tr>
+    <td>CH-18-11314</td>
+    <td>25 / 119 / 208<br>7.24 / 6.3</td>
+    <td>2 / 2 / 2<br>10.23 / 10.08</td>
+    <td>2</td>
+    <td>2</td>
+    <td>16.38</td>
+    <td>17.47</td>
+  </tr>
+  <tr>
+    <td>CH-20-9649</td>
+    <td>20 / 97 / 171<br>7.24 / 7.1</td>
+    <td>17 / 56 / 75<br>9.43 / 8.48</td>
+    <td>2</td>
+    <td>2</td>
+    <td>15.58</td>
+    <td>16.67</td>
+  </tr>
+  <tr>
+    <td>CH-19-10464</td>
+    <td>10 / 63 / 104<br>8.84 / 7.9</td>
+    <td>26 / 88 / 115<br>8.63 / 7.68</td>
+    <td>2</td>
+    <td>2</td>
+    <td>15.58</td>
+    <td>17.47</td>
+  </tr>
+  <tr>
+    <td>CH-21-4843w</td>
+    <td>27 / 138 / 240<br>6.44 / 6.3</td>
+    <td>14 / 30 / 34<br>10.23 / 9.28</td>
+    <td>2</td>
+    <td>2</td>
+    <td>15.58</td>
+    <td>16.67</td>
+  </tr>
+  <tr>
+    <td>CH-20-9691w</td>
+    <td>11 / 66 / 108<br>8.84 / 7.9</td>
+    <td>33 / 116 / 164<br>7.83 / 6.88</td>
+    <td>2</td>
+    <td>2</td>
+    <td>14.78</td>
+    <td>16.67</td>
+  </tr>
+  <tr>
+    <td>CH-15-5214w</td>
+    <td>O</td>
+    <td>4 / 6 / 6<br>10.23 / 10.08</td>
+    <td>1</td>
+    <td>1</td>
+    <td>10.08</td>
+    <td>10.23</td>
+  </tr>
+  <tr>
+    <td>CH-21-4830w</td>
+    <td>O</td>
+    <td>8 / 11 / 11<br>10.23 / 10.08</td>
+    <td>1</td>
+    <td>1</td>
+    <td>10.08</td>
+    <td>10.23</td>
+  </tr>
+  <tr>
+    <td>CH-19-10429</td>
+    <td>O</td>
+    <td>1 / 1 / 1<br>10.23 / 10.08</td>
+    <td>1</td>
+    <td>1</td>
+    <td>10.08</td>
+    <td>10.23</td>
+  </tr>
+  <tr>
+    <td>CH-18-11325</td>
+    <td>O</td>
+    <td>6 / 8 / 8<br>10.23 / 10.08</td>
+    <td>1</td>
+    <td>1</td>
+    <td>10.08</td>
+    <td>10.23</td>
+  </tr>
+  <tr>
+    <td>CH-21-4858w</td>
+    <td>O</td>
+    <td>13 / 26 / 29<br>10.23 / 10.08</td>
+    <td>1</td>
+    <td>1</td>
+    <td>10.08</td>
+    <td>10.23</td>
+  </tr>
+  <tr>
+    <td>CH-20-9674w</td>
+    <td>4 / 28 / 33<br>9.64 / 9.5</td>
+    <td>37 / - / 255<br>7.03 / 0.0</td>
+    <td>1</td>
+    <td>2</td>
+    <td>9.5</td>
+    <td>16.67</td>
+  </tr>
+  <tr>
+    <td>CH-20-9690</td>
+    <td>O</td>
+    <td>16 / 40 / 52<br>10.23 / 9.28</td>
+    <td>1</td>
+    <td>1</td>
+    <td>9.28</td>
+    <td>10.23</td>
+  </tr>
+  <tr>
+    <td>CH-21-722w</td>
+    <td>6 / 31 / 39<br>9.64 / 8.7</td>
+    <td>O</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.7</td>
+    <td>9.64</td>
+  </tr>
+  <tr>
+    <td>CH-21-4827w</td>
+    <td>O</td>
+    <td>20 / 60 / 79<br>9.43 / 8.48</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.48</td>
+    <td>9.43</td>
+  </tr>
+  <tr>
+    <td>CH-21-4824</td>
+    <td>O</td>
+    <td>22 / 63 / 82<br>9.43 / 8.48</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.48</td>
+    <td>9.43</td>
+  </tr>
+  <tr>
+    <td>CH-21-4825</td>
+    <td>O</td>
+    <td>19 / 58 / 77<br>9.43 / 8.48</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.48</td>
+    <td>9.43</td>
+  </tr>
+  <tr>
+    <td>CH-21-4807w</td>
+    <td>O</td>
+    <td>21 / 62 / 81<br>9.43 / 8.48</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.48</td>
+    <td>9.43</td>
+  </tr>
+  <tr>
+    <td>CH-21-4838w</td>
+    <td>O</td>
+    <td>24 / 72a / 93a<br>9.43 / 8.48</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.48</td>
+    <td>9.43</td>
+  </tr>
+  <tr>
+    <td>CH-21-4850w</td>
+    <td>O</td>
+    <td>25 / 72b / 93b<br>9.43 / 8.48</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.48</td>
+    <td>9.43</td>
+  </tr>
+  <tr>
+    <td>D-21-69760140</td>
+    <td>O</td>
+    <td>18 / 57 / 76<br>9.43 / 8.48</td>
+    <td>1</td>
+    <td>1</td>
+    <td>8.48</td>
+    <td>9.43</td>
+  </tr>
+  <tr>
+    <td>CH-20-878w</td>
+    <td>12 / 67 / 109<br>8.84 / 7.9</td>
+    <td>O</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.9</td>
+    <td>8.84</td>
+  </tr>
+  <tr>
+    <td>CH-21-4845w</td>
+    <td>O</td>
+    <td>32 / 102 / 138<br>8.63 / 7.68</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.68</td>
+    <td>8.63</td>
+  </tr>
+  <tr>
+    <td>CH-20-9672</td>
+    <td>O</td>
+    <td>28 / 90 / 118<br>8.63 / 7.68</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.68</td>
+    <td>8.63</td>
+  </tr>
+  <tr>
+    <td>CH-21-4854w</td>
+    <td>O</td>
+    <td>30 / 100a / 136a<br>8.63 / 7.68</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.68</td>
+    <td>8.63</td>
+  </tr>
+  <tr>
+    <td>CH-21-4834</td>
+    <td>18 / 92 / 166<br>8.04 / 7.1</td>
+    <td>O</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.1</td>
+    <td>8.04</td>
+  </tr>
+  <tr>
+    <td>CH-18-11319w</td>
+    <td>16 / 90 / 164<br>8.04 / 7.1</td>
+    <td>36 / - / 228<br>7.03 / 0.0</td>
+    <td>1</td>
+    <td>2</td>
+    <td>7.1</td>
+    <td>15.07</td>
+  </tr>
+  <tr>
+    <td>CH-18-11332w</td>
+    <td>17 / 91 / 165<br>8.04 / 7.1</td>
+    <td>O</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.1</td>
+    <td>8.04</td>
+  </tr>
+  <tr>
+    <td>CH-20-9687w</td>
+    <td>21 / 112a / 195a<br>7.24 / 7.1</td>
+    <td>O</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.1</td>
+    <td>7.24</td>
+  </tr>
+  <tr>
+    <td>CH-21-4811</td>
+    <td>19 / 95 / 169<br>7.24 / 7.1</td>
+    <td>O</td>
+    <td>1</td>
+    <td>1</td>
+    <td>7.1</td>
+    <td>7.24</td>
+  </tr>
+  <tr>
+    <td>CH-17-8865w</td>
+    <td>O</td>
+    <td>34 / 126 / 181<br>7.83 / 6.88</td>
+    <td>1</td>
+    <td>1</td>
+    <td>6.88</td>
+    <td>7.83</td>
+  </tr>
+  <tr>
+    <td>CH-21-4835w</td>
+    <td>24 / 118 / 207<br>7.24 / 6.3</td>
+    <td>38 / - / 259<br>7.03 / 0.0</td>
+    <td>1</td>
+    <td>2</td>
+    <td>6.3</td>
+    <td>14.27</td>
+  </tr>
+  <tr>
+    <td>CH-16-2306</td>
+    <td>23 / 117 / 200<br>7.24 / 6.3</td>
+    <td>O</td>
+    <td>1</td>
+    <td>1</td>
+    <td>6.3</td>
+    <td>7.24</td>
+  </tr>
+  <tr>
+    <td>CH-21-4813w</td>
+    <td>O</td>
+    <td>-</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td style=color:#00F;>CH-21-4826w</td>
+    <td>O</td>
+    <td>-</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4819w</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4805w</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4815w</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4802</td>
+    <td>O</td>
+    <td>-</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-20-9651w</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-17-8885</td>
+    <td>O</td>
+    <td>35 / - / 223<br>7.03 / 0.0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0.0</td>
+    <td>7.03</td>
+  </tr>
+  <tr>
+    <td>CH-20-370w</td>
+    <td>O</td>
+    <td>-</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-17-8836w</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4809</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4818</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td style=color:#00F;>CH-21-4836w</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-16-2384</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4804w</td>
+    <td>O</td>
+    <td>O</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>CH-21-4848</td>
+    <td>O</td>
+    <td>-</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0.0</td>
+    <td>0.0</td>
+  </tr>
+  </tr></tbody>
+</table>
+</div> 
+<script type="text/javascript">
+    $(document).ready( function () {
+    $('#result_table').DataTable( {
+      "dom": 'Bfrtip',
+      "buttons": [
+            {
+                extend: 'pdfHtml5',
+                title: 'Brieftauben Altreise 2022 SG Hirschi',
+                orientation: 'landscape',
+                pageSize: 'LEGAL',
+                stripHtml: false,
+                exportOptions: { 
+                  format:{ 
+                    header: function(data){ 
+                      var valor = data.toString();  
+                      valor = valor.replace(/\<br>/g,"\n");
+                      return valor;
+                    }, 
+                    body: function(data){ 
+                      var valor = data.toString();  
+                      valor = valor.replace(/\<br>/g,"\n");
+                      return valor;
+                    } 
+                  } 
+                }
+            }
+        ],
+      "pageLength": 100,
+      "columnDefs": [
+    {"className": "dt-center", "targets": "_all"},
+    {className: "no-wrap",width: "120px", targets: 0}
+],"drawCallback": function () {
+        $( 'tbody tr td' ).css( 'padding', '0.1px 0.1px 0.1px 0.1px' );
+    }
+      }).columns(-1).order('desc').draw();
+    } );
+</script>
+</body>
+</html>
