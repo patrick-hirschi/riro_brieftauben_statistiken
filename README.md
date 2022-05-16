@@ -12,3 +12,5 @@ Ablauf:
 4. Ausführen des Python Skriptes riro_processor.py
 5. Ausführen des Python Skriptes generate_html.py
 6. Output html entweder lokal im Browser anschauen oder über einen Webserver hochladen/verfügbar machen
+
+Weitere Beschreibungen: https://patrick-hirschi.ch/brieftauben-leistungsdaten-riro-de/
