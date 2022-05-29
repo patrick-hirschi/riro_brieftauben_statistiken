@@ -16,13 +16,16 @@ INTRO = """<!DOCTYPE html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/4.1.0/js/dataTables.fixedColumns.min.js"></script>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/4.1.0/css/fixedColumns.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
@@ -37,7 +40,7 @@ INTRO = """<!DOCTYPE html>
 <h1 style="text-align: center !important; color: #4575B6 !important;">Brieftauben Altreise 2022 SG Hirschi</h1>
 <p>In der nachfolgenden Tabelle sind die Leistungsdaten der Brieftauben der SG Hirschi dargestellt. Die Daten werden dazu automatisiert aus den Riro Preislisten ausgelesen und voraggregiert.</p>
 <p>Für jede Taube wird die Leistung pro Flug dargestellt als <strong>"Rang bei Züchter / Rang in Gruppe / Rang in Region"</strong> und <strong>"AS-Punkte FG / AS-Punkte RV"</strong>. Ein "O" ("Härdöpfu!") bedeutet, dass die Taube zwar eingesetzt war, es allerdings nicht in die Preise geschafft hat. Nicht oder nicht mehr eingesetzte Tauben sind mit einem "-" gekennzeichnet. Die Tauben mit blauer Schrift wurden zu Beginn der Saison als die besten 5 Jährigen getippt.</p>
-<p>Die Tabelle ist sortiert nach der Summe der AS-Punkte in der RV.</p>
+<p>Die Tabelle ist sortiert nach der Summe der AS-Punkte in der FG.</p>
 </div>
 <div>"""
 
@@ -48,12 +51,16 @@ OUTRO = """
     $(document).ready( function () {
     $('#result_table').DataTable( {
       "dom": 'Bfrtip',
+      "fixedHeader": true,
+      "fixedColumns": true,
       "buttons": [
             {
                 extend: 'pdfHtml5',
+                text: 'PDF Export',
                 title: 'Brieftauben Altreise 2022 SG Hirschi',
                 orientation: 'landscape',
-                pageSize: 'LEGAL',
+                filename: '2022_leistungsdaten_sg_hirschi',
+                pageSize: 'A4',
                 stripHtml: false,
                 exportOptions: { 
                   format:{ 

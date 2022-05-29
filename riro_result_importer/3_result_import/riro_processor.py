@@ -3,20 +3,20 @@ from mysql import connector
 
 # INPUT PARAMETER
 zuechter = 'Hirschi Simon+Beat'
-km = ""
-auflassort = ""
+km = "220"
+auflassort = "Ulm"
 flugnr = "3"
-flugdatum = "2022-05-21"
-anz_ztr_fg = ""
-anz_ztr_rv = ""
-anz_ztr_rg = ""
-anz_tbn_fg = ""
-anz_tbn_rv = ""
-anz_tbn_rg = ""
+flugdatum = "2022-05-22"
+anz_ztr_fg = "11"
+anz_ztr_rv = "21"
+anz_ztr_rg = "43"
+anz_tbn_fg = "380"
+anz_tbn_rv = "705"
+anz_tbn_rg = "1687"
 # Set to False for validation/testing
 db_insert = False
 # input file (content copied from a sample result list from www.riro.de)
-filepath = '/Users/ph/Projects/riro_result_importer/results/regv02kr02/results.txt'
+filepath = '/Users/ph/Projects/riro/riro_brieftauben_statistiken/riro_result_importer/results/regv02kr02/results.txt'
 # useful for validation purposes: https://regex101.com/
 # pattern  = '^(\s*)([1-9][0-9]*[a-z]?)(\s*)([1-9][0-9]*[a-z]?)?(\s*)([0-1][0-9]*)?(\s*)([a-zA-Z]*)?(\s*)([0-9]*)(\s*)([0-9]*)?(\s*)([0-9]*W?\s)(\s*)([a-zA-Zäöüéèß&]*[.,]?\s*[,]?\s*[a-zA-Zäöüéèß&]*\s*[,+]?[a-zA-Zäöüéèß&]*\s*[+-.\/]*\s*[a-zA-Zäöüéèß&]*.?)(\s*)([0-9][0-9])(\s*)([0-9]*\/\s*[0-9]*)?(\s*)([0-9][0-9]?\s)?(\s*)([0-9]*.[0-9]*.[0-9]*)(\s*)(-?[0-9]\s)?(\s*)([0-9]*,[0-9]*)(\s*)([0-9]*,[0-9]*)?(\s*)([0-9]*,[0-9]*)?(\s*)([A-Z])?(\s*)([0-9]*\/\s*[0-9]*)(\s*)([0-9]*)(\s*)([0-9]*,?[0-9]*)(\s*)([0-9]*)(\s*)([0-9]*)(\s*)$'
 pattern  = '^(\s*)([1-9][0-9]*[a-z]?)(\s*)([1-9][0-9]*[a-z]?)?(\s*)([1-9][0-9]*[a-z]?)?(\s*)([0-9][A-Z][0-9]\/)?(\s*)([0-1][0-9]*)?(\s*)([0-9]*)?(\s*)([0-9]*)?(\s*)([a-zA-Z]*)?(\s*)([0-9]*)(\s*)([0-9]*)?(\s*)([0-9]*W?\s)(\s*)([a-zA-Zäöüéèß&]*[.,]?\s*[,]?\s*[a-zA-Zäöüéèß&]*\s*[,+]?[a-zA-Zäöüéèß&]*\s*[+-.\/]*\s*[a-zA-Zäöüéèß&]*.?)(\s*)([0-9][0-9])(\s*)([0-9]*\/\s*[0-9]*)?(\s*)([0-9][0-9]?\s)?(\s*)([0-9][0-9]?\s)?(\s*)([0-9]*.[0-9]*.[0-9]*)(\s*)(-?[0-9]\s)?(\s*)([0-9]*,[0-9]*)(\s*)([0-9]*,[0-9]*)?(\s*)([0-9]*,[0-9]*)?(\s*)([0-9]*,[0-9]*)?(\s*)([A-Z])?(\s*)([0-9]*\/\s*[0-9]*)(\s*)([0-9]*)(\s*)([0-9]*,?[0-9]*)(\s*)([0-9]*)(\s*)([0-9]*)(\s*)$'

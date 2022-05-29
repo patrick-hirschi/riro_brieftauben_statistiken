@@ -1,6 +1,6 @@
 import re
-import database
-import html_templates as template
+import backend.database as database
+import visualization.html_templates as template
 import pandas as pd
 from datetime import datetime
 
@@ -28,7 +28,7 @@ max_flug = database.get_max_flug(tablename_eingesetzt)
 print(max_flug.to_markdown())
 max_flug_int = max_flug['max_flug'].values[0]
 
-fileout = open("/Users/ph/Projects/riro_result_importer/output/"+outputfilename, "w")
+fileout = open("/Users/ph/Projects/riro/riro_brieftauben_statistiken/riro_result_importer/output/"+outputfilename, "w")
 
 table = "<table id=""result_table"" class=""display"">\n"
 
