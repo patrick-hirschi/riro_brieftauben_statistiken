@@ -1,6 +1,6 @@
 import re
-import backend.database as database
-import visualization.html_templates as template
+import database as database
+import html_templates as template
 import pandas as pd
 from datetime import datetime
 

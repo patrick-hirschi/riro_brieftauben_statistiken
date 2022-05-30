@@ -3,16 +3,18 @@ from mysql import connector
 
 # INPUT PARAMETER
 zuechter = 'Hirschi Simon+Beat'
-km = "220"
-auflassort = "Ulm"
-flugnr = "3"
-flugdatum = "2022-05-22"
+km = "243"
+auflassort = "Burgau"
+flugnr = "4"
+flugdatum = "2022-05-28"
 anz_ztr_fg = "11"
 anz_ztr_rv = "21"
 anz_ztr_rg = "43"
-anz_tbn_fg = "380"
-anz_tbn_rv = "705"
-anz_tbn_rg = "1687"
+anz_tbn_fg = "361"
+anz_tbn_rv = "649"
+anz_tbn_rg = "1576"
+# Set to False if the RV was better than the FG
+rv_worse_than_fg = False
 # Set to False for validation/testing
 db_insert = False
 # input file (content copied from a sample result list from www.riro.de)
@@ -118,12 +120,20 @@ for line in lines:
                     aspkt_rv = ""
                 aspkt_rg = ""
             else:
-                if match.group(40):
-                    aspkt_fg = match.group(40).strip()
-                else: 
+                if rv_worse_than_fg:
+                    if match.group(40):
+                        aspkt_rv = match.group(40).strip()
+                    else: 
+                        aspkt_rv = ""
+                    aspkt_rg = ""
                     aspkt_fg = ""
-                aspkt_rg = ""
-                aspkt_rv = ""
+                else:
+                    if match.group(40):
+                        aspkt_fg = match.group(40).strip()
+                    else: 
+                        aspkt_fg = ""
+                    aspkt_rg = ""
+                    aspkt_rv = ""
 
         if match.group(6):        
             if match.group(2):
@@ -150,12 +160,20 @@ for line in lines:
                     prs_rv = ""
                 prs_rg = ""
             else:
-                if match.group(2):
-                    prs_fg = match.group(2).strip()
-                else: 
+                if rv_worse_than_fg:
+                    if match.group(2):
+                        prs_rv = match.group(2).strip()
+                    else: 
+                        prs_rv = ""
+                    prs_rg = ""
                     prs_fg = ""
-                prs_rg = ""
-                prs_rv = ""
+                else:
+                    if match.group(2):
+                        prs_fg = match.group(2).strip()
+                    else: 
+                        prs_fg = ""
+                    prs_rg = ""
+                    prs_rv = ""
 
         if match.group(48):
             prs_tb = match.group(48).strip()

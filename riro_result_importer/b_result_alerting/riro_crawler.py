@@ -7,11 +7,11 @@ import pywhatkit
 from datetime import datetime
 
 # PRODUCTION - PRoductive WhatsApp Group with all Recipients
-Gruppenname_Whatsapp = "JI70ZWh8yPyJJhTpAkib"
+Gruppenname_Whatsapp = "JIWh8yPyJhTpAkib"
 
 # TESTING - WhatsApp Group with only Developers Account in it
 # Uncomment for Testing and Debugging
-# Gruppenname_Whatsapp = "I8Bq6z5OBFQYWK3VjV6J"
+# Gruppenname_Whatsapp = "IqInOYWK3VjV6J"
 
 # Configuration Values - for Swiss Races only the calendar week and the year have to be adjusted accordingly
 regv = "001Schweizer Verband"
