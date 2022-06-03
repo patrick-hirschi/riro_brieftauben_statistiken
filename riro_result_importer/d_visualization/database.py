@@ -29,14 +29,27 @@ def get_agg_resultate(tablename, tablename_eingesetzt):
     conn = sqlEngine.connect()
 
     # Preparing SQL query to INSERT a record into the database.
-    sql = "SELECT  EING.taubennr, \
-                    CAST(SUM(IF(CHAR_LENGTH(RESULTATE.prs_fg)>0,1,0)) AS UNSIGNED) AS prs_fg, \
-                    CAST(SUM(IF(CHAR_LENGTH(RESULTATE.prs_rv)>0,1,0)) AS UNSIGNED) AS prs_rv, \
-                    COALESCE(SUM(CAST(REPLACE(RESULTATE.aspkt_fg,',','.') AS DECIMAL(4,2))),0) AS aspkt_fg_total, \
-                    COALESCE(SUM(CAST(REPLACE(RESULTATE.aspkt_rv,',','.') AS DECIMAL(4,2))),0) AS aspkt_rv_total \
-            FROM brieftauben.`"+tablename_eingesetzt+"` 	AS EING \
-            LEFT JOIN brieftauben.`"+tablename+"`	AS RESULTATE ON RESULTATE.taubennr = EING.taubennr AND RESULTATE.flugnummer = EING.flugnummer  \
-            GROUP BY EING.taubennr"
+    sql = "WITH ASPKT AS ( \
+                SELECT  taubennr,  \
+                        flugnummer, \
+                        GREATEST(MAX(CAST(REPLACE(aspkt_fg,',','.') AS DECIMAL(4,2))),MAX(CAST(REPLACE(aspkt_rv,',','.') AS DECIMAL(4,2)))) AS ASPKT \
+                FROM brieftauben.`2022_Flugsaison_Hirschi`   \
+                GROUP BY taubennr, flugnummer \
+            ) \
+            SELECT  EING.taubennr,  \
+                    CAST(SUM(IF(CHAR_LENGTH(RESULTATE.prs_fg)>0,1,0)) AS UNSIGNED) AS prs_fg,  \
+                    CAST(SUM(IF(CHAR_LENGTH(RESULTATE.prs_rv)>0,1,0)) AS UNSIGNED) AS prs_rv,  \
+                    COALESCE(SUM(CAST(REPLACE(RESULTATE.aspkt_fg,',','.') AS DECIMAL(4,2))),0) AS aspkt_fg_total,  \
+                    COALESCE(SUM(CAST(REPLACE(RESULTATE.aspkt_rv,',','.') AS DECIMAL(4,2))),0) AS aspkt_rv_total , \
+                    COUNT(DISTINCT(EING.flugnummer)) AS anz_einsaetze, \
+                    COUNT(DISTINCT(RESULTATE.flugnummer)) AS anz_gelistet, \
+                    COALESCE(SUM(ASPKT.ASPKT),0) AS aspkt_total_riro, \
+                    GREATEST(CAST(SUM(IF(CHAR_LENGTH(RESULTATE.prs_fg)>0,1,0)) AS UNSIGNED),CAST(SUM(IF(CHAR_LENGTH(RESULTATE.prs_rv)>0,1,0)) AS UNSIGNED)) AS preise_total_riro \
+            FROM brieftauben.`"+tablename_eingesetzt+"` 	AS EING  \
+            LEFT JOIN brieftauben.`"+tablename+"`	AS RESULTATE ON RESULTATE.taubennr = EING.taubennr AND RESULTATE.flugnummer = EING.flugnummer   \
+            LEFT JOIN ASPKT ON ASPKT.taubennr = EING.taubennr AND ASPKT.flugnummer = EING.flugnummer \
+            GROUP BY EING.taubennr \
+            ORDER BY SUM(ASPKT.ASPKT) DESC"
 
     try:
         # Executing the SQL command

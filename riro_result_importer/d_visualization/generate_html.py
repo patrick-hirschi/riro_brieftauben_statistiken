@@ -47,10 +47,9 @@ if counter < max_flug_int:
         table += "    <th>{0}</th>\n".format("Flug " + str(counter + count))
         diff = diff - 1
         count = count + 1
-table += "  <th>Preise<br>RV</th>\n"
-table += "  <th>Preise<br>FG</th>\n"
-table += "  <th>AsPkt<br>RV</th>\n"
-table += "  <th>AsPkt<br>FG</th>\n"
+table += "  <th>Flüge</th>\n"
+table += "  <th>Preise</th>\n"
+table += "  <th>AsPkt</th>\n"
 table += "  </tr></thead>\n"
 
 # Create the table's row data
@@ -82,10 +81,9 @@ for index, row in agg_resultate.iterrows():
         else:
             table += "    <td>-</td>\n"
 
-    table += "    <td>{0}</td>\n".format(row['prs_rv'])
-    table += "    <td>{0}</td>\n".format(row['prs_fg'])
-    table += "    <td>{0}</td>\n".format(row['aspkt_rv_total'])
-    table += "    <td>{0}</td>\n".format(row['aspkt_fg_total'])
+    table += "    <td>{0}</td>\n".format(row['anz_einsaetze'])
+    table += "    <td>{0}</td>\n".format(row['anz_gelistet'])
+    table += "    <td>{0}</td>\n".format(row['aspkt_total_riro'])
     table += "  </tr>\n"
 
 table += "  </tr></tbody>\n"
