@@ -3,16 +3,16 @@ from mysql import connector
 
 # INPUT PARAMETER
 zuechter = 'Hirschi Simon+Beat'
-km = "243"
-auflassort = "Burgau"
-flugnr = "4"
+km = "281"
+auflassort = "Dasing"
+flugnr = "5"
 flugdatum = "2022-05-28"
 anz_ztr_fg = "11"
 anz_ztr_rv = "21"
-anz_ztr_rg = "43"
-anz_tbn_fg = "361"
+anz_ztr_rg = "44"
+anz_tbn_fg = "606"
 anz_tbn_rv = "649"
-anz_tbn_rg = "1576"
+anz_tbn_rg = "1506"
 # Set to False if the RV was better than the FG
 rv_worse_than_fg = False
 # Set to False for validation/testing

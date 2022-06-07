@@ -16,7 +16,7 @@ Gruppenname_Whatsapp = "JIWh8yPyJhTpAkib"
 # Configuration Values - for Swiss Races only the calendar week and the year have to be adjusted accordingly
 regv = "001Schweizer Verband"
 filter = "alle"
-kw = "21"
+kw = "22"
 year = "2022"
 action = "showRaceResults"
 alert_state_at_script_start = False
@@ -130,7 +130,7 @@ while len(regvnames) > 0:
         # Only alert the state at script start, if it is configured to True
         if count != 0 or alert_state_at_script_start:
             # Send the output text to the recipient via WhatsApp
-            pywhatkit.sendwhatmsg_to_group(Gruppenname_Whatsapp, output, now.hour, now.minute + 1, 10, 5)
+            pywhatkit.sendwhatmsg_to_group_instantly(Gruppenname_Whatsapp, output, 15, True, 1)
         
         # Also print it to console
         print(output)

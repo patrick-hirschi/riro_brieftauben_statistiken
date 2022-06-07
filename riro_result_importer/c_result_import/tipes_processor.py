@@ -1,12 +1,12 @@
 import re
 from mysql import connector
 
-flugnr = "3"
+flugnr = "5"
 tablename = "2022_Eingesetzte_Tauben_Hirschi"
 # Set to False for validation/testing
 db_insert = False
 # input file (output from TIPES device)
-filepath = '/Users/ph/Projects/riro/riro_brieftauben_statistiken/riro_result_importer/tipes/hirschi/202204.d00'
+filepath = '/Users/ph/Projects/riro/riro_brieftauben_statistiken/riro_result_importer/tipes/hirschi/202205.d00'
 # useful for validation purposes: https://regex101.com/
 pattern  = '^([0-9][0-9][0-9][0-9])([1-9][0-9])([A-Z][A-Z]?)\s*(0*)([1-9][0-9]*w?)\s*([0-9]*)\s*([0-9A-Z]*)(\*)([0-9]*;)([A-Z][A-Z]?)([0-9]*).([1-9][0-9]).([0-9]*w?);([a-zA-Z0-9.]*)$'
 
