@@ -4,9 +4,10 @@ import os
 from pickletools import pyset
 import time
 import re
+import io
 from asyncio import sleep
 from contextlib import closing
-from datetime import datetime
+from datetime import datetime, timedelta
 from datetime import timezone
 from dateutil import tz
 from xmlrpc.server import SimpleXMLRPCRequestHandler
@@ -17,7 +18,9 @@ import requests
 from pandas import DataFrame, json_normalize
 from tabulate import tabulate
 from matplotlib.backends.backend_pdf import PdfPages
-from PyPDF2 import PdfMerger
+from PyPDF2 import PdfMerger, PdfFileWriter, PdfFileReader
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 import paramiko
 from PIL import Image, ImageDraw, ImageFont
 
@@ -25,7 +28,6 @@ from PIL import Image, ImageDraw, ImageFont
 api_username = "privat_hirschi"
 api_password = "2342334"
 ssh_key_password = "3242342354"
-start_date = "2022-06-11"
 start_hour = "07"
 hours = 36
 resolution_hours = 1
@@ -59,35 +61,42 @@ locations = {
   "Bern":"46.947922,7.444608"
 }
 
+def next_weekday(d, weekday):
+    days_ahead = weekday - d.weekday()
+    if days_ahead <= 0: # Target day already happened this week
+        days_ahead += 7
+    return d + timedelta(days_ahead)
+
+start_date = next_weekday(datetime.today(), 5)
 # Build URL
-url = f"https://api.meteomatics.com/{start_date}T{start_hour}ZPT{hours}H:PT{resolution_hours}H/{','.join(parameters.values())}/<<LOCATION>>/{output}"
+url = f"https://api.meteomatics.com/{start_date.strftime('%Y-%m-%d')}T{start_hour}ZPT{hours}H:PT{resolution_hours}H/{','.join(parameters.values())}/<<LOCATION>>/{output}"
 
-session = requests.Session()
-session.auth = (api_username, api_password)
+# session = requests.Session()
+# session.auth = (api_username, api_password)
 
-df_final = pd.DataFrame(columns=['date', 'value', 'data.coordinates.lat', 
-                        'data.coordinates.lon', 'data.parameter', 'city'])
+# df_final = pd.DataFrame(columns=['date', 'value', 'data.coordinates.lat', 
+#                         'data.coordinates.lon', 'data.parameter', 'city'])
 
-for key, value in locations.items():
-    location_url = url.replace("<<LOCATION>>",value)
+# for key, value in locations.items():
+#     location_url = url.replace("<<LOCATION>>",value)
 
-    # Query the meteomatics webservice URL
-    with session.get(location_url, stream=True) as response:
-        # Use json_normalize() to convert JSON to DataFrame
-        dict = json.loads(response.content)
-        df = json_normalize(dict,
-                                record_path=['data','coordinates','dates'], 
-                                meta=[
-                                    ['data','coordinates','lat'], 
-                                    ['data','coordinates','lon'],
-                                    ['data','parameter'],
-                                    ['city']
-                                ],
-                                errors='ignore') 
-        df.city = df.city.fillna(key)
-        df_final = pd.concat([df_final, df],ignore_index=True)     
+#     # Query the meteomatics webservice URL
+#     with session.get(location_url, stream=True) as response:
+#         # Use json_normalize() to convert JSON to DataFrame
+#         dict = json.loads(response.content)
+#         df = json_normalize(dict,
+#                                 record_path=['data','coordinates','dates'], 
+#                                 meta=[
+#                                     ['data','coordinates','lat'], 
+#                                     ['data','coordinates','lon'],
+#                                     ['data','parameter'],
+#                                     ['city']
+#                                 ],
+#                                 errors='ignore') 
+#         df.city = df.city.fillna(key)
+#         df_final = pd.concat([df_final, df],ignore_index=True)     
 
-df_final.to_csv(f"{local_basepath}weather.csv")  
+# df_final.to_csv(f"{local_basepath}weather.csv")  
 
 #####
 ###         READ AND CLEANSE CSV FILE
@@ -224,6 +233,12 @@ for x in range(1,(len(locations)//5) + 2):
         ax.set_ylim(0,50)
         ax.set_ylabel('Windgeschwindigkeit (km/h)', color=col1, fontsize=18)
 
+        # draw lightgrey boxes for daylights
+        day_1 = start_date.strftime('%a %d.%m.')
+        day_2 = (start_date + timedelta(days=1)).strftime('%a %d.%m.')
+        ax.axvspan(day_1+ " 07:00", day_1 + " 19:00", alpha=1, color='whitesmoke')
+        ax.axvspan(day_2+ " 07:00", day_2 + " 19:00", alpha=1, color='whitesmoke')
+
         #define y-axis that shares x-axis with current plot
         ax2 = ax.twinx()
         ax2.spines["right"].set_position(("axes", 1.03))
@@ -272,9 +287,8 @@ for x in range(1,(len(locations)//5) + 2):
                         ha='center') # horizontal alignment can be left, right or center  
         count += 1
     # savefig
-    pp.savefig(fig, bbox_inches='tight', pad_inches=1.5,
-            orientation='portrait',
-            papertype='a4')
+    # fig.set_size_inches(8.27,11.69)
+    pp.savefig(fig, bbox_inches='tight', pad_inches=1.5)
    
 
 # We can also set the file's metadata via the PdfPages object:
@@ -288,11 +302,43 @@ d['ModDate'] = datetime.now()
 pp.close()
 
 #####
+###         SET LAST UPDATE TIME IN DOCUMENT PDF
+#####
+update_date_time = datetime.now()
+# Set message to print and the filename
+message = f"Zuletzt aktualisiert am {update_date_time.strftime('%d.%m.%Y')} um {update_date_time.strftime('%H:%M:%S')}."
+
+packet = io.BytesIO()
+
+# do whatever writing you want to do
+can = canvas.Canvas(packet, pagesize=letter)
+can.setFillColor("red")
+can.setLineWidth(5)
+can.drawString(170, 780, message)
+can.save()
+
+#move to the beginning of the StringIO buffer
+packet.seek(0)
+new_pdf = PdfFileReader(packet)
+# read your existing PDF
+existing_pdf = PdfFileReader(open(f"{local_basepath}Wetterreport_Dokumentation.pdf", "rb"))
+output = PdfFileWriter()
+# add the "watermark" (which is the new pdf) on the existing page
+page = existing_pdf.getPage(0)
+page.mergePage(new_pdf.getPage(0))
+output.addPage(page)
+
+# finally, write "output" to a real file
+outputStream = open(f"{local_basepath}Wetterreport_Dokumentation_LASTMOD.pdf", "wb")
+output.write(outputStream)
+outputStream.close()
+
+#####
 ###         MERGE PDFs (Documentation & Weather Data)
 #####
 
 # Set PDF paths to be combined
-pdfs = [f"{local_basepath}Wetterreport_Dokumentation.pdf", f"{local_basepath}Wetterdaten.pdf"]
+pdfs = [f"{local_basepath}Wetterreport_Dokumentation_LASTMOD.pdf", f"{local_basepath}Wetterdaten.pdf"]
 
 # Merge all pages of the configured PDFs
 merger = PdfMerger()
@@ -307,8 +353,6 @@ merger.close()
 ###         CREATE LAST UPDATE DATE TIME IMAGE
 #####
 
-# Set message to print and the filename
-message = f"Zuletzt aktualisiert am {datetime.now().strftime('%d.%m.%Y')} um {datetime.now().strftime('%H:%M:%S')}."
 filename = f"{local_basepath}last_update_date_time.jpg"
 
 # Draw the text on a JPG image
